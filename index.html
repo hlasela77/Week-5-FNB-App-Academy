@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Calculator App</title>
+</head>
+<body>
+    <div class="Calculator">
+        <!-- Display -->
+         <div class="Numbers Display">
+            <input type="text" id="display" value="0" readonly>
+        </div>
+        <!-- Buttons -->
+        <div class="Buttons">
+            <!--First Row-->
+            <button class="btn clear" onclick="clearDisplay">AC</button>
+            <button class="btn operator"onclick="deletaLast()">DEL</button>
+            <button class="btn divide"onclick="appendToDisplay('*')">x</button>
+            <button class="btn operaton"onclick="appendToDisplay('/')">/</button>
+
+            <!--Second Row-->
+            <button class="btn seven" onclick="appendToDisplay('7')">7</button>
+            <button class="btn eight" onclick="appendToDisplay('8')">8</button>
+            <button class="btn nine" onclick="appendToDisplay('9')">9</button>
+            <button class="btn subtract" onclick="appendToDisplay('-')">-</button>
+
+            <!--Third Row-->
+            <button class="btn four" onclick="appendToDisplay('4')">4</button>
+            <button class="btn five" onclick="appendToDisplay('5')">5</button>
+            <button class="btn six" onclick="appendToDisplay('6')">6</button>
+            <button class="btn add" onclick="appendToDisplay('+')">+</button>
+
+            <!--Fourth Row-->
+            <button class="btn one" onclick="appendToDisplay('1')">1</button>
+            <button class="btn two" onclick="appendToDisplay('2')">2</button>
+            <button class="btn three" onclick="appendToDisplay('3')">3</button>
+            <button class="btn equals"onclick="calculate()"rowspan="2">=</button>
+
+            <!--Fifth Row-->
+            <button class="btn zero" onclick="appendToDisplay('0')">0</button>
+            <button class="btn decimal" onclick="appendToDisplay('.')">.</button>
+            <button class="btn percent" onclick="appendToDisplay('%')">%</button>
+            <button class="btn square" onclick="appendToDisplay('^2')">x²</button>
+            
+    </div>
+</body>
+</html>
