@@ -4,17 +4,26 @@ const display = document.getElementById(display);
 // Track if we have performed a calculation
 let justCalculated = false;
 
+function isOperator(char) {
+    return ['+','-','*','/']
+}
+
+function getLastChar(){
+    return display.value.slice (-1);
+}
+
 function appendToDisplay(value){
-    console.log('Button pressed:'value);
+    console.log('Button pressed:' , value);
 
     let currentValue= display.value;
-    if (justCalculated & !isNaN(value)){
+
+    if (justCalculated & !isNaN(value)) {
         display.value= value;
         justCalculated = false;
         return;
     }
         // If current display show 0 and users a number,we wanna replace the 0 
-    if (currentValue=== "0" && !isNaN(value)){
+    if (currentValue=== "0" && !isNaN(value)) {
         display.value = value;
         justCalculated = false;
         return; 
