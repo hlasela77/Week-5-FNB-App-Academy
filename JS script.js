@@ -5,7 +5,7 @@ const display = document.getElementById(display);
 let justCalculated = false;
 
 function isOperator(char) {
-    return ['+','-','*','/']
+    return ['+','-','*','/'].includes(char);
 }
 
 function getLastChar(){
@@ -22,13 +22,62 @@ function appendToDisplay(value){
         justCalculated = false;
         return;
     }
+if(justCalculated && isOperator(value)){
+    display.value = currentValue + value;
+    justCalculated = false;
+    return;
+
+}
+//handles operators
+if(isOperator(value)){
+    // Dont allow operator as first char (exceptio for minus)
+    if (currentValue === '0' && value !== '-') {
+        return; //Do nothing
+
+    }
+
+    // if last character is already an operator, replace it
+    if (isOperator(getLastChar())) {
+        display.value = currentValue.slice(0, -1) + value;
+    } else {
+        display.value = currentValue + value;
+    }
+
+} else if (!isNaN(value)) {
+    if (currentValue ==='0'){
+        display.value = value;
+    } else {
+        display.value = currentValue + value;
+    } 
+} else if (Value === '-' ) 
+
+   if (currentValue='0'){
+        display.value = currentValue + value;
+    } else {
+        
+        //Get the last number in display (after last operator)
+        let parts = currentValue.split('/[+\-*/')
+        let lastNumber = parts[parts.length - 1];
+
+        // only add decimal if number doesnt already have one
+        if (!lastNumber.includes('.')) {
+            display.value = currentValue + value;
+        }
+
+
+    }
+   
+}
+
         // If current display show 0 and users a number,we wanna replace the 0 
     if (currentValue=== "0" && !isNaN(value)) {
         display.value = value;
         justCalculated = false;
         return; 
+
     } else if (currentValue==='0' && value =='.'){
         display.value = currentValue + value;
+
     }else if(value ==='.'){
         let lastNumber = currentValue.split('/[+\-*/').pop();
 
