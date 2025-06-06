@@ -12,6 +12,35 @@ function getLastChar(){
     return display.value.slice (-1);
 }
 
+function getLastChar(){
+    return display.value.slice(-1);
+}
+function safeEval(expreeion) {
+    try {
+        let jsExpression = expression
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/')
+            .replace(/−/g, '-');
+
+            if(!/^[0-9+\-*/.() ]+$/.test(jsExpression)) {
+                throw new Error('Invalid characters in expression');
+            }
+
+
+            const result = function(' "use strict"; return (' + jsExpression + ')')();
+
+
+            if (!isFinite(result)) {
+                throw new Error('Invalid calculation result');
+            }
+            return result;
+    }catch (error) {
+        console.error('calcualtion error :', error);
+        return 'Error';
+    }
+}
+
+
 function appendToDisplay(value){
     console.log('Button pressed:' , value);
 
@@ -84,10 +113,11 @@ if(isOperator(value)){
         if (lastNumber.includes('.')){
             display.value =currentValue + value
         }
-    }
-    }else {
-        display.value = currentValue + value;
+    
 
+    } else {
+        display.value = currentValue + value;
+// Reset justCalculated flag when user starts typing
         justCalculated = fale;
 
         console.log('Display updated to:', display.value);
@@ -110,9 +140,11 @@ setTimeout(() => {
     
 }
 
-function deletelast()
+function deletelast() {
     console.log('Backspace button pressed.');
-    let currentValue = display
+
+    let currentValue = display.Value;
+    // if theres only one character or its 0 , reset to 0
 
     if(currentValue.length <= 1 || currentValue ==='0'){
         display.value ='0';
@@ -123,39 +155,50 @@ function deletelast()
     
 
 function calculate(){
-    console.log('Equals button pressed');
+    let expression = display.value;
 
-    alert('Equals button was clicked');
-}
-document.addEventListener('Keydown',function(event) {
-    console.log('key pressed',event.key);
-
-    if(event.ket>='0' && event.key <='9'){ 
-        appendToDisplay(event.key);
-
-    } else if (event.key ==='.'){
-        appendToDisplay('.');
-
-    } else if (event.key=== '+'){
-        appendToDisplay('+');
-
-    } else if(event.key==='-'){
-        appendToDisplay('-');
-
-    } else if (event.key==='/'){
-        event.preventDrfult();
-        appendToDisplay('/');
-
+    // Dont calc if display is 0 or empty
+    if(expression === '0' || expression === ''){
+        return;
     }
-     else if(event.key==='Enter'|| eve.key ==='='){
-        calculate();
+    // Dont calc if expression end with operator
+    if (isOperator(getLastChar())) {
+        return;
+    }
+    let result = safeEval(expression);
+    if (result === 'Error') {
+        display.value = 'Error';
+        setTimeout(() => {
+            clearDisplay();
+        }, 2000);
+    } else {
+
+        if (Number.isFinite(result)) {
+            display.value = result.toString();
+        } else {
+
+            display.value = parseFloat(result).toFixed(10).toString();
+        }
+        justCalculated = true;
+        o
+    }
+    display.style.backgroundColor = '#d4edda'; // Green background for success
+    setTimeout(() => {
+        display.style.backgroundColor = '';
+
+    }, 300);
+
+
+}
+
+
+>document.addEventListener('Keydown',function(event) {})
+
+>document.addEventListener('DOMContentLoaded', function() {})
     
-    } else if (event.key==='Escape'||event.key ==='c'|| event.key ==='C'){
-        clearDisplay()
 
-    } else if (event.key ==='Backspace'){
-        deleteLast();
-
+{
+    if (event.key === 'Enter') {}
     }
 }
 
